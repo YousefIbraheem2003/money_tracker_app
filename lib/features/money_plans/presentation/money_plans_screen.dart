@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:money_tracker_app/features/home_screen/models/home_screen_model.dart';
 import 'package:money_tracker_app/features/money_plans/models/money_plans_model.dart';
 import 'package:money_tracker_app/features/money_plans/presentation/plan_cards.dart';
 
@@ -35,11 +37,10 @@ class _MoneyPlansScreenState extends State<MoneyPlansScreen> {
               print('Card $index isExpanded: ${moneyPlans[index].isExpanded}');
             },
             onTap: () {
+              double money = 1000;
+              // Map<String, double> breakdown = {};
               switch (plan.planType) {
                 case PlanType.fiftyThirtyTwenty:
-                  print('User selected: 50/30/20 Plan');
-                  final result = plan.calculatePlan(1000);
-                  print(result);
                   break;
 
                 case PlanType.zeroBased:
@@ -54,6 +55,11 @@ class _MoneyPlansScreenState extends State<MoneyPlansScreen> {
                   print('User selected: Envelope System Plan');
                   break;
               }
+              final summary = HomeScreenModel(
+                planName: plan.planName,
+                planSummary: plan.calculatePlan(money),
+              );
+              context.go('/home_screen', extra: summary);
             },
           );
         },
