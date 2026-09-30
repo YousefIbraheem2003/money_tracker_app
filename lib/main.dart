@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:simple_money_tracker/features/detailed_expenses_Screen/detailed_expenses_screen.dart';
+import 'package:simple_money_tracker/features/home_screen/presentation/fixed_commitment_screen.dart';
 
 void main() {
   runApp(ProviderScope(child: SimpleMoneyTracker()));
@@ -13,7 +13,7 @@ class SimpleMoneyTracker extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DetailedExpensesScreen(),
+      home: FixedCommitmentScreen(),
     );
   }
 }
