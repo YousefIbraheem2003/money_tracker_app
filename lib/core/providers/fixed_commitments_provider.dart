@@ -40,7 +40,7 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     state = newState;
   }
 
-  void deleteExpenses(int index) {
+  void deleteCommitment(int index) {
     final newExpense = [...state];
     newExpense.removeAt(index);
     state = newExpense;
