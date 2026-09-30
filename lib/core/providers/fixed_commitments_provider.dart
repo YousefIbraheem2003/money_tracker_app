@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:simple_money_tracker/features/home_screen/models/commitment_card_model.dart';
+import 'package:simple_money_tracker/core/models/commitment_card_model.dart';
 
 final fixedCommitmentProvider =
     NotifierProvider<FixedCommitmentNotifier, List<CommitmentModel>>(
