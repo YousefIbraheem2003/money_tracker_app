@@ -48,7 +48,7 @@ class _FixedCommitmentScreenState extends ConsumerState<FixedCommitmentScreen> {
         },
 
         onPressed: (int index) {
-          ref.read(fixedCommitmentProvider.notifier).deleteExpenses(index);
+          ref.read(fixedCommitmentProvider.notifier).deleteCommitment(index);
 
           editingIndex = null;
           textEditingController.clear();
