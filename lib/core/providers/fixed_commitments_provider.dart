@@ -17,10 +17,27 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
 
     final newCommitmmitmentsModel = CommitmentModel(
       description: description,
-      totalAmountOfMoney: totalAmountOfMoney,
-      // expenses: expenses,
+      amount: totalAmountOfMoney,
+      expenses: [],
     );
     state = [...state, newCommitmmitmentsModel];
+  }
+
+  void addExpenses({
+    required int index,
+    required double totalAmountOfMoney,
+    required String description,
+  }) {
+    final newExpenses = ExpenseModel(
+      description: description,
+      amount: totalAmountOfMoney,
+    );
+    final commitment = state[index];
+    final newExpesesList = [...commitment.expenses, newExpenses];
+    final updatedCommitment = commitment.copyWith(expenses: newExpesesList);
+    final newState = [...state];
+    newState[index] = updatedCommitment;
+    state = newState;
   }
 
   void deleteExpenses(int index) {
@@ -29,11 +46,11 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     state = newExpense;
   }
 
-  void editExpenses(int index, double? amount) {
-    final oldExpense = state[index];
-    final updatedExpense = oldExpense.copyWith(totalAmountOfMoney: amount);
-    final newList = [...state];
-    newList[index] = updatedExpense;
-    state = newList;
-  }
+  // void editExpenses(int index, double? amount) {
+  //   final oldExpense = state[index];
+  //   final updatedExpense = oldExpense.copyWith(totalAmountOfMoney: amount);
+  //   final newList = [...state];
+  //   newList[index] = updatedExpense;
+  //   state = newList;
+  // }
 }
