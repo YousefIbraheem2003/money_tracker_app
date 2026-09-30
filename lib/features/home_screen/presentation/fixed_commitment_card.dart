@@ -17,7 +17,7 @@ class ReusableCard extends StatelessWidget {
         child: Column(
           children: [
             Text(commitmentCardModel.description),
-            Text('${commitmentCardModel.totalAmountOfMoney}'),
+            Text('${commitmentCardModel.amount}'),
           ],
         ),
       ),

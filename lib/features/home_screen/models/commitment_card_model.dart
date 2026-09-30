@@ -1,17 +1,22 @@
 class CommitmentModel {
   String description;
-  double totalAmountOfMoney;
-  // List<ExpenseModel> expenses;
+  double amount;
+  List<ExpenseModel> expenses;
 
   CommitmentModel({
     required this.description,
-    required this.totalAmountOfMoney,
-    // required this.expenses,
+    required this.amount,
+    required this.expenses,
   });
-  CommitmentModel copyWith({String? description, double? totalAmountOfMoney}) {
+  CommitmentModel copyWith({
+    String? description,
+    double? amount,
+    List<ExpenseModel>? expenses,
+  }) {
     return CommitmentModel(
       description: description ?? this.description,
-      totalAmountOfMoney: totalAmountOfMoney ?? this.totalAmountOfMoney,
+      amount: amount ?? this.amount,
+      expenses: expenses ?? this.expenses,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_money_tracker/core/providers/fixed_commitments_provider.dart';
 import 'package:simple_money_tracker/core/reusable_widgets/reusable_widget_for_home_and_detailed_screens.dart';
+import 'package:simple_money_tracker/features/detailed_expenses_Screen/detailed_expenses_screen.dart';
 
 class FixedCommitmentScreen extends ConsumerStatefulWidget {
   const FixedCommitmentScreen({super.key});
@@ -29,21 +30,26 @@ class _FixedCommitmentScreenState extends ConsumerState<FixedCommitmentScreen> {
         focusNode: focusNode,
         dynamicList: commitments,
 
-        // EDIT
         onTap: (int index) {
-          editingIndex = index;
+          print(index);
+          // print(commitments[index].expenses[index].amount);
+          // print(commitments[index].expenses[index].description);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailedExpensesScreen(index: index),
+            ),
+          );
+          // editingIndex = index;
 
-          textEditingController.text = commitments[index].totalAmountOfMoney
-              .toString();
+          // textEditingController.text = commitments[index].amount.toString();
 
-          focusNode.requestFocus();
+          // focusNode.requestFocus();
         },
 
-        // DELETE
         onPressed: (int index) {
           ref.read(fixedCommitmentProvider.notifier).deleteExpenses(index);
 
-          // If we deleted the item we were editing
           editingIndex = null;
           textEditingController.clear();
         },
@@ -58,11 +64,10 @@ class _FixedCommitmentScreenState extends ConsumerState<FixedCommitmentScreen> {
 
           if (editingIndex != null) {
             // EDIT EXISTING COMMITMENT
-            notifier.editExpenses(editingIndex!, amount);
+            // notifier.editExpenses(editingIndex!, amount);
 
             editingIndex = null;
           } else {
-            // ADD NEW COMMITMENT
             notifier.addCommitments(amount, 'no');
           }
 
