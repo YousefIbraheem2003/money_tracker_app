@@ -57,22 +57,25 @@ class _FixedCommitmentScreenState extends ConsumerState<FixedCommitmentScreen> {
 
         // ADD OR EDIT
         onSubmitted: (String value) {
-          final amount = double.tryParse(value);
+          // final amount = double.tryParse(value);
 
-          if (amount == null) return;
+          // if (amount == null) return;
 
-          final notifier = ref.read(fixedCommitmentProvider.notifier);
+          // final notifier = ref.read(fixedCommitmentProvider.notifier);
 
-          if (editingIndex != null) {
-            // EDIT EXISTING COMMITMENT
-            // notifier.editExpenses(editingIndex!, amount);
+          // if (editingIndex != null) {
+          //   // EDIT EXISTING COMMITMENT
+          //   // notifier.editExpenses(editingIndex!, amount);
 
-            editingIndex = null;
-          } else {
-            notifier.addCommitments(amount, 'no');
-          }
+          //   editingIndex = null;
+          // } else {
+          //   notifier.addCommitments(
+          //     totalAmountOfMoney: amount,
+          //     description: 'no',
+          //   );
+          // }
 
-          textEditingController.clear();
+          // textEditingController.clear();
         },
       ),
     );
