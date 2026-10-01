@@ -11,6 +11,7 @@ class ReusableWidgetForHomeAndDetailedScreens extends StatelessWidget {
     required this.onTap,
     required this.onPressed,
     required this.onSubmitted,
+    required this.category,
   });
 
   final String emptyListText;
@@ -20,7 +21,7 @@ class ReusableWidgetForHomeAndDetailedScreens extends StatelessWidget {
   final void Function(int index) onTap;
   final void Function(int index) onPressed;
   final ValueChanged<String> onSubmitted;
-
+  final CommitmentCategory category;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,18 +51,22 @@ class ReusableWidgetForHomeAndDetailedScreens extends StatelessWidget {
 
             const Spacer(),
 
-            TextField(
-              controller: textEditingController,
-              focusNode: focusNode,
-              keyboardType: TextInputType.number,
-              onSubmitted: onSubmitted,
-              decoration: const InputDecoration(
-                hintText: 'Enter your expenses',
-              ),
-            ),
+            category == CommitmentCategory.commitment
+                ? const SizedBox()
+                : TextField(
+                    controller: textEditingController,
+                    focusNode: focusNode,
+                    keyboardType: TextInputType.number,
+                    onSubmitted: onSubmitted,
+                    decoration: const InputDecoration(
+                      hintText: 'Enter your expenses',
+                    ),
+                  ),
           ],
         ),
       ),
     );
   }
 }
+
+enum CommitmentCategory { commitment, expense }
