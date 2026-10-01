@@ -41,16 +41,36 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
   }
 
   void deleteCommitment(int index) {
-    final newExpense = [...state];
-    newExpense.removeAt(index);
-    state = newExpense;
+    final newCommitment = [...state];
+    newCommitment.removeAt(index);
+    state = newCommitment;
   }
 
-  // void editExpenses(int index, double? amount) {
-  //   final oldExpense = state[index];
-  //   final updatedExpense = oldExpense.copyWith(totalAmountOfMoney: amount);
-  //   final newList = [...state];
-  //   newList[index] = updatedExpense;
-  //   state = newList;
-  // }
+  void deleteExpenses({
+    required int indexOfTheCommitment,
+    required int indexOfTheFixedCommitment,
+  }) {
+    final commitment = state[indexOfTheCommitment];
+    final newExpensesList = [...commitment.expenses];
+    newExpensesList.removeAt(indexOfTheFixedCommitment);
+    final updatedCommitment = commitment.copyWith(expenses: newExpensesList);
+    final newState = [...state];
+    newState[indexOfTheCommitment] = updatedCommitment;
+    state = newState;
+  }
+
+  void editCommitment({
+    required int index,
+    required double? amount,
+    required String description,
+  }) {
+    final oldExpense = state[index];
+    final updatedExpense = oldExpense.copyWith(
+      amount: amount,
+      description: description,
+    );
+    final newList = [...state];
+    newList[index] = updatedExpense;
+    state = newList;
+  }
 }
