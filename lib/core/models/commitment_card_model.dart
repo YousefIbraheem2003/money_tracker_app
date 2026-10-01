@@ -2,7 +2,6 @@ class CommitmentModel {
   String description;
   double amount;
   List<ExpenseModel> expenses;
-
   CommitmentModel({
     required this.description,
     required this.amount,
@@ -24,7 +23,6 @@ class CommitmentModel {
 class ExpenseModel {
   String description;
   double amount;
-
   ExpenseModel({required this.description, required this.amount});
 
   ExpenseModel copyWith({String? description, double? amount}) {
@@ -34,14 +32,14 @@ class ExpenseModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {description: description, 'amount': amount};
-  }
+  // Map<String, dynamic> toJson() {
+  //   return {description: description, 'amount': amount};
+  // }
 
-  factory ExpenseModel.fromJson(Map<String, dynamic> json) {
-    return ExpenseModel(
-      description: json['description'],
-      amount: (json['amount'] as num).toDouble(),
-    );
-  }
+  // factory ExpenseModel.fromJson(Map<String, dynamic> json) {
+  //   return ExpenseModel(
+  //     description: json['description'],
+  //     amount: (json['amount'] as num).toDouble(),
+  //   );
+  // }
 }
