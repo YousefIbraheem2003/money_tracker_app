@@ -12,7 +12,10 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     return [];
   }
 
-  void addCommitments(double totalAmountOfMoney, String description) {
+  void addCommitments({
+    required double totalAmountOfMoney,
+    required String description,
+  }) {
     // final expenses = ref.read(expensesProvider(description));
 
     final newCommitmmitmentsModel = CommitmentModel(
