@@ -58,19 +58,16 @@ class ReusableWidgetForHomeAndDetailedScreens extends StatelessWidget {
                     ),
             ),
 
-            const Spacer(),
-
-            category == CommitmentCategory.commitment
-                ? const SizedBox()
-                : TextField(
-                    controller: textEditingController,
-                    focusNode: focusNode,
-                    keyboardType: TextInputType.number,
-                    onSubmitted: onSubmitted,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your expenses',
-                    ),
-                  ),
+            if (category != CommitmentCategory.commitment)
+              TextField(
+                controller: textEditingController,
+                focusNode: focusNode,
+                keyboardType: TextInputType.number,
+                onSubmitted: onSubmitted,
+                decoration: const InputDecoration(
+                  hintText: 'Enter your expenses',
+                ),
+              ),
           ],
         ),
       ),
