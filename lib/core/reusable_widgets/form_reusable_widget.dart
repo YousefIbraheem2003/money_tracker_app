@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FormScreen extends ConsumerWidget {
-  const FormScreen({
+class FormReusableWidget extends StatelessWidget {
+  const FormReusableWidget({
     super.key,
+
     required this.commitmentName,
     required this.totalAmount,
-    required this.commitmentAction,
     required this.onSubmitted,
     required this.onPressed,
+    required this.commitmentAction,
   });
+  final String commitmentAction;
   final TextEditingController commitmentName;
   final TextEditingController totalAmount;
-  final CommitmentAction commitmentAction;
   final void Function(String value) onSubmitted;
   final VoidCallback onPressed;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: commitmentAction == CommitmentAction.addCommitment
-            ? const Text('Add Commitment')
-            : const Text('Edit Commitment'),
-      ),
+      appBar: AppBar(title: Text(commitmentAction)),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -78,5 +74,3 @@ class FormScreen extends ConsumerWidget {
     );
   }
 }
-
-enum CommitmentAction { addCommitment, editCommitment }
