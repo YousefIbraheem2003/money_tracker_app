@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_money_tracker/core/providers/fixed_commitments_provider.dart';
+import 'package:simple_money_tracker/core/reusable_widgets/reusable_card.dart';
 import 'package:simple_money_tracker/core/reusable_widgets/reusable_widget_for_home_and_detailed_screens.dart';
 //
 
@@ -24,6 +25,8 @@ class _DetailedExpensesScreen extends ConsumerState<DetailedExpensesScreen> {
     final commitmentExpenses = expenses[widget.index].expenses;
     return Scaffold(
       body: ReusableWidgetForHomeAndDetailedScreens(
+        onPressedEdit: (value) {},
+        categoryOfTheReusableCard: Category.detailedExpensesScreen,
         category: CommitmentCategory.expense,
         emptyListText: 'Start adding your expenses',
         textEditingController: textEditingController,
@@ -61,7 +64,7 @@ class _DetailedExpensesScreen extends ConsumerState<DetailedExpensesScreen> {
           } else {
             notifier.addExpenses(
               index: widget.index,
-              description: expenses[index!].description,
+              description: expenses[widget.index].description,
               totalAmountOfMoney: double.tryParse(textEditingController.text)!,
             );
           }

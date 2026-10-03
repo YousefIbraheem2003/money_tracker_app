@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_money_tracker/core/providers/fixed_commitments_provider.dart';
+import 'package:simple_money_tracker/core/reusable_widgets/reusable_card.dart';
 import 'package:simple_money_tracker/core/reusable_widgets/reusable_widget_for_home_and_detailed_screens.dart';
 import 'package:simple_money_tracker/features/detailed_expenses_Screen/detailed_expenses_screen.dart';
+import 'package:simple_money_tracker/features/fixed_commitment/presentation/edit_commitment_screen.dart';
 
 class FixedCommitmentScreen extends ConsumerStatefulWidget {
   const FixedCommitmentScreen({super.key});
@@ -25,6 +27,14 @@ class _FixedCommitmentScreenState extends ConsumerState<FixedCommitmentScreen> {
 
     return Scaffold(
       body: ReusableWidgetForHomeAndDetailedScreens(
+        onPressedEdit: (int index) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => EditCommitmentsScreen(index: index),
+            ),
+          );
+        },
+        categoryOfTheReusableCard: Category.fixedCommintmentScreen,
         category: CommitmentCategory.commitment,
         emptyListText: 'Nothing to see yet',
         textEditingController: textEditingController,

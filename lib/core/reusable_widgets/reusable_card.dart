@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ReusableCard extends StatelessWidget {
@@ -6,13 +7,16 @@ class ReusableCard extends StatelessWidget {
     required this.onTap,
     required this.description,
     required this.totalAmountOfMoney,
-    required this.onPressed,
+    required this.onPressedDelete,
+    required this.category,
+    required this.onPressedEdit,
   });
   final String description;
   final double totalAmountOfMoney;
   final VoidCallback onTap;
-  final VoidCallback onPressed;
-
+  final VoidCallback onPressedDelete;
+  final VoidCallback onPressedEdit;
+  final Category category;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -25,10 +29,15 @@ class ReusableCard extends StatelessWidget {
               children: [Text(description), Text('$totalAmountOfMoney')],
             ),
             Spacer(),
-            IconButton(onPressed: onPressed, icon: Icon(Icons.delete)),
+            category == Category.fixedCommintmentScreen
+                ? IconButton(onPressed: onPressedEdit, icon: Icon(Icons.edit))
+                : const SizedBox(),
+            IconButton(onPressed: onPressedDelete, icon: Icon(Icons.delete)),
           ],
         ),
       ),
     );
   }
 }
+
+enum Category { detailedExpensesScreen, fixedCommintmentScreen }

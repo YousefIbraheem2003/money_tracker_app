@@ -12,6 +12,8 @@ class ReusableWidgetForHomeAndDetailedScreens extends StatelessWidget {
     required this.onPressed,
     required this.onSubmitted,
     required this.category,
+    required this.categoryOfTheReusableCard,
+    required this.onPressedEdit,
   });
 
   final String emptyListText;
@@ -22,6 +24,9 @@ class ReusableWidgetForHomeAndDetailedScreens extends StatelessWidget {
   final void Function(int index) onPressed;
   final ValueChanged<String> onSubmitted;
   final CommitmentCategory category;
+  final Category categoryOfTheReusableCard;
+  final void Function(int index) onPressedEdit;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +41,11 @@ class ReusableWidgetForHomeAndDetailedScreens extends StatelessWidget {
                       itemCount: dynamicList.length,
                       itemBuilder: (context, index) {
                         return ReusableCard(
-                          onPressed: () {
+                          onPressedEdit: () {
+                            onPressedEdit(index);
+                          },
+                          category: categoryOfTheReusableCard,
+                          onPressedDelete: () {
                             onPressed(index);
                           },
                           onTap: () {
