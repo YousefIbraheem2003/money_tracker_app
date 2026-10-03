@@ -9,6 +9,7 @@ class AddCommitment extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(fixedCommitmentProvider);
     TextEditingController commitmentNameController = TextEditingController();
     TextEditingController totalAmountController = TextEditingController();
 

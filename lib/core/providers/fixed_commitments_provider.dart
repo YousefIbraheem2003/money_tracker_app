@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_money_tracker/core/models/commitment_card_model.dart';
+import 'package:simple_money_tracker/core/storage_helper/storage_helper.dart';
 
 final fixedCommitmentProvider =
     NotifierProvider<FixedCommitmentNotifier, List<CommitmentModel>>(
@@ -9,6 +10,8 @@ final fixedCommitmentProvider =
 class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
   @override
   List<CommitmentModel> build() {
+    print('BUILD PROVIDER');
+    _loadCommitments();
     return [];
   }
 
@@ -24,6 +27,7 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
       expenses: [],
     );
     state = [...state, newCommitmmitmentsModel];
+    StorageHelper.saveCommitments(state);
   }
 
   void addExpenses({
@@ -46,12 +50,14 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     final newState = [...state];
     newState[index] = updatedCommitment;
     state = newState;
+    StorageHelper.saveCommitments(state);
   }
 
   void deleteCommitment(int index) {
     final newCommitment = [...state];
     newCommitment.removeAt(index);
     state = newCommitment;
+    StorageHelper.saveCommitments(state);
   }
 
   void deleteExpenses({
@@ -70,6 +76,7 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     final newState = [...state];
     newState[indexOfTheCommitment] = updatedCommitment;
     state = newState;
+    StorageHelper.saveCommitments(state);
   }
 
   void editCommitment({
@@ -91,6 +98,7 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     final newList = [...state];
     newList[index] = updatedCommitment;
     state = newList;
+    StorageHelper.saveCommitments(state);
   }
 
   void editExpenses({
@@ -107,5 +115,14 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     final newState = [...state];
     newState[indexOfTheCommitment] = updatedCommitment;
     state = newState;
+    StorageHelper.saveCommitments(state);
+  }
+
+  Future<void> _loadCommitments() async {
+    print('start loading');
+    final commitments = await StorageHelper.loadCommitments();
+    print('LOADED COMMITMENTS: ${commitments.length}');
+    state = commitments;
+    print('STATE UPDATED: ${state.length}');
   }
 }

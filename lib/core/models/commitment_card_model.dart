@@ -18,6 +18,24 @@ class CommitmentModel {
       expenses: expenses ?? this.expenses,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'description': description,
+      'amount': amount,
+      'expenses': expenses.map((expense) => expense.toJson()).toList(),
+    };
+  }
+
+  factory CommitmentModel.fromJson(Map<String, dynamic> json) {
+    return CommitmentModel(
+      description: json['description'],
+      amount: json['amount'],
+      expenses: (json['expenses'] as List)
+          .map((expense) => ExpenseModel.fromJson(expense))
+          .toList(),
+    );
+  }
 }
 
 class ExpenseModel {
@@ -32,14 +50,14 @@ class ExpenseModel {
     );
   }
 
-  // Map<String, dynamic> toJson() {
-  //   return {description: description, 'amount': amount};
-  // }
+  Map<String, dynamic> toJson() {
+    return {'description': description, 'amount': amount};
+  }
 
-  // factory ExpenseModel.fromJson(Map<String, dynamic> json) {
-  //   return ExpenseModel(
-  //     description: json['description'],
-  //     amount: (json['amount'] as num).toDouble(),
-  //   );
-  // }
+  factory ExpenseModel.fromJson(Map<String, dynamic> json) {
+    return ExpenseModel(
+      description: json['description'],
+      amount: json['amount'],
+    );
+  }
 }
