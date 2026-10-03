@@ -29,9 +29,9 @@ class EditCommitmentsScreen extends ConsumerWidget {
               amount: totalAmountOfMoney,
               description: nameOfTheCommitmentController.text,
             );
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => FixedCommitmentScreen()),
-        );
+        Navigator.of(
+          context,
+        ).pop(MaterialPageRoute(builder: (context) => FixedCommitmentScreen()));
       },
 
       commitmentAction: 'Edit Commitment',

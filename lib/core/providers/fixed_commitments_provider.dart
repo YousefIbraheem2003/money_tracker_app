@@ -36,8 +36,13 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
       amount: totalAmountOfMoney,
     );
     final commitment = state[index];
+    final newTotalAmountOfMoney = commitment.amount - newExpenses.amount;
     final newExpesesList = [...commitment.expenses, newExpenses];
-    final updatedCommitment = commitment.copyWith(expenses: newExpesesList);
+
+    final updatedCommitment = commitment.copyWith(
+      expenses: newExpesesList,
+      amount: newTotalAmountOfMoney,
+    );
     final newState = [...state];
     newState[index] = updatedCommitment;
     state = newState;
@@ -55,8 +60,13 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
   }) {
     final commitment = state[indexOfTheCommitment];
     final newExpensesList = [...commitment.expenses];
+    final newTotalAmountOfMoney =
+        newExpensesList[indexOfTheFixedCommitment].amount + commitment.amount;
     newExpensesList.removeAt(indexOfTheFixedCommitment);
-    final updatedCommitment = commitment.copyWith(expenses: newExpensesList);
+    final updatedCommitment = commitment.copyWith(
+      expenses: newExpensesList,
+      amount: newTotalAmountOfMoney,
+    );
     final newState = [...state];
     newState[indexOfTheCommitment] = updatedCommitment;
     state = newState;
@@ -67,13 +77,19 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     required double? amount,
     required String description,
   }) {
-    final oldExpense = state[index];
-    final updatedExpense = oldExpense.copyWith(
+    final newCommitment = state[index];
+    final updatedExpensesList = newCommitment.expenses
+        .map((expense) => expense.copyWith(description: description))
+        .toList();
+
+    final updatedCommitment = newCommitment.copyWith(
       amount: amount,
       description: description,
+      expenses: updatedExpensesList,
     );
+
     final newList = [...state];
-    newList[index] = updatedExpense;
+    newList[index] = updatedCommitment;
     state = newList;
   }
 
