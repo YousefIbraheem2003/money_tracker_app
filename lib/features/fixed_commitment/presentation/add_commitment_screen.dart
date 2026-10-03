@@ -13,7 +13,7 @@ class AddCommitment extends ConsumerWidget {
     TextEditingController totalAmountController = TextEditingController();
 
     return FormReusableWidget(
-      commitmentName: commitmentNameController,
+      name: commitmentNameController,
       totalAmount: totalAmountController,
       commitmentAction: 'Add Commitment',
       onSubmitted: (value) {

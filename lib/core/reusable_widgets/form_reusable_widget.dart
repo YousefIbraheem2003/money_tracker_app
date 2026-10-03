@@ -4,14 +4,14 @@ class FormReusableWidget extends StatelessWidget {
   const FormReusableWidget({
     super.key,
 
-    required this.commitmentName,
+    required this.name,
     required this.totalAmount,
     required this.onSubmitted,
     required this.onPressed,
     required this.commitmentAction,
   });
   final String commitmentAction;
-  final TextEditingController commitmentName;
+  final TextEditingController name;
   final TextEditingController totalAmount;
   final void Function(String value) onSubmitted;
   final VoidCallback onPressed;
@@ -28,7 +28,7 @@ class FormReusableWidget extends StatelessWidget {
             const SizedBox(height: 15),
             Text('Commitment name'),
             TextField(
-              controller: commitmentName,
+              controller: name,
               decoration: InputDecoration(hintText: 'Rent'),
             ),
             const SizedBox(height: 15),
