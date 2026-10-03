@@ -76,4 +76,20 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     newList[index] = updatedExpense;
     state = newList;
   }
+
+  void editExpenses({
+    required int indexOfTheCommitment,
+    required int indexOfTheFixedCommitment,
+    required double amount,
+  }) {
+    final newCommitment = state[indexOfTheCommitment];
+    final newExpense = newCommitment.expenses[indexOfTheFixedCommitment];
+    final updatedExpense = newExpense.copyWith(amount: amount);
+    final updatedExpenses = [...newCommitment.expenses];
+    updatedExpenses[indexOfTheFixedCommitment] = updatedExpense;
+    final updatedCommitment = newCommitment.copyWith(expenses: updatedExpenses);
+    final newState = [...state];
+    newState[indexOfTheCommitment] = updatedCommitment;
+    state = newState;
+  }
 }

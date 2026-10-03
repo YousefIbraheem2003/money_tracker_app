@@ -21,6 +21,7 @@ class _DetailedExpensesScreen extends ConsumerState<DetailedExpensesScreen> {
   @override
   Widget build(BuildContext context) {
     final expenses = ref.watch(fixedCommitmentProvider);
+    final commitmentExpenses = expenses[widget.index].expenses;
     return Scaffold(
       body: ReusableWidgetForHomeAndDetailedScreens(
         category: CommitmentCategory.expense,
@@ -30,7 +31,8 @@ class _DetailedExpensesScreen extends ConsumerState<DetailedExpensesScreen> {
         dynamicList: expenses[widget.index].expenses,
         onTap: (index) {
           editingIndex = index;
-          textEditingController.text = expenses[index].amount.toString();
+          textEditingController.text = commitmentExpenses[index].amount
+              .toString();
           focusNode.requestFocus();
         },
         onPressed: (index) {
@@ -49,7 +51,11 @@ class _DetailedExpensesScreen extends ConsumerState<DetailedExpensesScreen> {
           final notifier = ref.read(fixedCommitmentProvider.notifier);
 
           if (editingIndex != null) {
-            // notifier.editExpenses(editingIndex!, amount);
+            notifier.editExpenses(
+              indexOfTheCommitment: widget.index,
+              indexOfTheFixedCommitment: editingIndex!,
+              amount: amount,
+            );
 
             editingIndex = null;
           } else {
