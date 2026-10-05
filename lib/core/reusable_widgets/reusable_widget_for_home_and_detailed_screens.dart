@@ -53,6 +53,8 @@ class ReusableWidgetForHomeAndDetailedScreens extends StatelessWidget {
                           },
                           description: dynamicList[index].description,
                           totalAmountOfMoney: dynamicList[index].amount,
+                          dateTime: dynamicList[index].dateTime,
+                          // '${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}',
                         );
                       },
                     ),

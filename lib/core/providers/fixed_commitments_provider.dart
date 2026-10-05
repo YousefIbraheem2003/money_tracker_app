@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:simple_money_tracker/core/models/commitment_card_model.dart';
+import 'package:simple_money_tracker/core/models/commitment_model.dart';
 import 'package:simple_money_tracker/core/storage_helper/storage_helper.dart';
 
 final fixedCommitmentProvider =
@@ -19,7 +19,11 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     required double totalAmountOfMoney,
     required String description,
   }) {
+    // final expenses = ref.read(expensesProvider(description));
+
     final newCommitmmitmentsModel = CommitmentModel(
+      dateTime:
+          '${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}',
       description: description,
       amount: totalAmountOfMoney,
       expenses: [],
@@ -34,6 +38,8 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     required String description,
   }) {
     final newExpenses = ExpenseModel(
+      dateTime:
+          '${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}',
       description: description,
       amount: totalAmountOfMoney,
     );
@@ -119,6 +125,8 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
   Future<void> _loadCommitments() async {
     print('start loading');
     final commitments = await StorageHelper.loadCommitments();
+    print('LOADED COMMITMENTS: ${commitments.length}');
     state = commitments;
+    print('STATE UPDATED: ${state.length}');
   }
 }

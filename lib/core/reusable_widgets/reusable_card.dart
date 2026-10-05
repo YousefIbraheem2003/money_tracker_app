@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ReusableCard extends StatelessWidget {
@@ -7,12 +6,15 @@ class ReusableCard extends StatelessWidget {
     required this.onTap,
     required this.description,
     required this.totalAmountOfMoney,
+
     required this.onPressedDelete,
     required this.category,
     required this.onPressedEdit,
+    required this.dateTime,
   });
   final String description;
   final double totalAmountOfMoney;
+  final String dateTime;
   final VoidCallback onTap;
   final VoidCallback onPressedDelete;
   final VoidCallback onPressedEdit;
@@ -26,7 +28,11 @@ class ReusableCard extends StatelessWidget {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text(description), Text('$totalAmountOfMoney')],
+              children: [
+                Text(description),
+                Text('$totalAmountOfMoney'),
+                Text('$dateTime'),
+              ],
             ),
             Spacer(),
             category == Category.fixedCommintmentScreen

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:simple_money_tracker/core/models/commitment_card_model.dart';
+import 'package:simple_money_tracker/core/models/commitment_model.dart';
 
 class StorageHelper {
   static const String commitmentsKey = 'commitments';
