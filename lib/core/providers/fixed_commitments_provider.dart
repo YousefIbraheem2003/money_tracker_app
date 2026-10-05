@@ -19,8 +19,6 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     required double totalAmountOfMoney,
     required String description,
   }) {
-    // final expenses = ref.read(expensesProvider(description));
-
     final newCommitmmitmentsModel = CommitmentModel(
       description: description,
       amount: totalAmountOfMoney,
@@ -121,8 +119,6 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
   Future<void> _loadCommitments() async {
     print('start loading');
     final commitments = await StorageHelper.loadCommitments();
-    print('LOADED COMMITMENTS: ${commitments.length}');
     state = commitments;
-    print('STATE UPDATED: ${state.length}');
   }
 }
