@@ -31,10 +31,10 @@ class DashBoardScreen extends ConsumerWidget {
       return totalAmountOfMoney;
     }
 
-    double calculateThePercentageOfTheIndicator(
-      double theSpentAmount,
-      double totalAmount,
-    ) {
+    double calculateThePercentageOfTheIndicator({
+      required double theSpentAmount,
+      required double totalAmount,
+    }) {
       if (totalAmount == 0) {
         return 0;
       }
@@ -133,9 +133,14 @@ class DashBoardScreen extends ConsumerWidget {
                           itemBuilder: (context, index) {
                             final percentage =
                                 calculateThePercentageOfTheIndicator(
-                                  totalExpensesInEveryCommitment(index),
-                                  commitment[index].amount,
+                                  theSpentAmount:
+                                      totalExpensesInEveryCommitment(index),
+                                  totalAmount: commitment[index].originalAmount,
                                 );
+                            // calculateThePercentageOfTheIndicator(
+                            //   totalExpensesInEveryCommitment(index),
+                            //   commitment[index].amount,
+                            // );
                             print('percentage: $percentage of index $index');
                             return Card(
                               child: InkWell(
