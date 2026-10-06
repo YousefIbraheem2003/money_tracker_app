@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:simple_money_tracker/features/dash_doard/presentation/dash_board_screen.dart';
 import 'package:simple_money_tracker/features/fixed_commitment/presentation/add_commitment_screen.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class SimpleMoneyTracker extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AddCommitment(),
+      home: DashBoardScreen(),
     );
   }
 }
