@@ -40,7 +40,9 @@ class CommitmentModel {
 
   factory CommitmentModel.fromJson(Map<String, dynamic> json) {
     return CommitmentModel(
-      originalAmount: json['originalAmount'],
+      originalAmount: json['originalAmount'] != null
+          ? (json['originalAmount'] as num).toDouble()
+          : (json['amount'] as num).toDouble(),
       dateTime: json['dateTime'] != null
           ? (json['dateTime'])
           : '${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}',
