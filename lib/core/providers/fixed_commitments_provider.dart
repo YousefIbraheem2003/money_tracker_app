@@ -26,6 +26,7 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
           '${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}',
       description: description,
       amount: totalAmountOfMoney,
+      originalAmount: totalAmountOfMoney,
       expenses: [],
     );
     state = [...state, newCommitmmitmentsModel];

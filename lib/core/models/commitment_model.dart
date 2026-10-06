@@ -1,10 +1,12 @@
 class CommitmentModel {
   String description;
   double amount;
+  double originalAmount;
   List<ExpenseModel> expenses;
   String dateTime;
 
   CommitmentModel({
+    required this.originalAmount,
     required this.dateTime,
     required this.description,
     required this.amount,
@@ -15,8 +17,10 @@ class CommitmentModel {
     String? description,
     double? amount,
     List<ExpenseModel>? expenses,
+    double? originalAmount,
   }) {
     return CommitmentModel(
+      originalAmount: originalAmount ?? this.originalAmount,
       dateTime: dateTime ?? this.dateTime,
       description: description ?? this.description,
       amount: amount ?? this.amount,
@@ -30,11 +34,13 @@ class CommitmentModel {
       'amount': amount,
       'expenses': expenses.map((expense) => expense.toJson()).toList(),
       'dateTime': dateTime,
+      'originalAmount': originalAmount,
     };
   }
 
   factory CommitmentModel.fromJson(Map<String, dynamic> json) {
     return CommitmentModel(
+      originalAmount: json['originalAmount'],
       dateTime: json['dateTime'] != null
           ? (json['dateTime'])
           : '${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}',
