@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:simple_money_tracker/core/models/commitment_model.dart';
 import 'package:simple_money_tracker/core/providers/fixed_commitments_provider.dart';
 import 'package:simple_money_tracker/features/detailed_expenses_Screen/detailed_expenses_screen.dart';
 import 'package:simple_money_tracker/features/fixed_commitment/presentation/add_commitment_screen.dart';
 
-class DashBoardScreen extends ConsumerWidget {
+class DashBoardScreen extends ConsumerStatefulWidget {
   const DashBoardScreen({super.key});
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final commitment = ref.watch(fixedCommitmentProvider);
+  ConsumerState<DashBoardScreen> createState() => _DashBoardScreenState();
+}
 
+class _DashBoardScreenState extends ConsumerState<DashBoardScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final commitment = ref.watch(fixedCommitmentProvider);
+    final recentExpenses = <ExpenseModel>[];
+
+    for (final item in commitment) {
+      recentExpenses.addAll(item.expenses);
+    }
+
+    recentExpenses.sort((a, b) => b.dateTime.compareTo(a.dateTime));
     double calculateTotalAmountOfMoney() {
       double totalAmount = 0;
       for (int i = 0; i < commitment.length; i++) {
-        totalAmount = commitment[i].amount + totalAmount;
+        totalAmount = commitment[i].originalAmount + totalAmount;
       }
       return totalAmount;
     }
@@ -66,7 +77,7 @@ class DashBoardScreen extends ConsumerWidget {
               children: [
                 Text('Good afternoon'),
                 SizedBox(height: 5),
-                Text('dateTime'),
+                Text('${DateTime.now().month}/${DateTime.now().day}'),
                 SizedBox(height: 20),
 
                 Card(
@@ -99,7 +110,9 @@ class DashBoardScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
+
                 SizedBox(height: 10),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -123,7 +136,9 @@ class DashBoardScreen extends ConsumerWidget {
                     ),
                   ],
                 ),
+
                 SizedBox(height: 10),
+
                 commitment.isEmpty
                     ? Text('Start adding your commitments')
                     : SizedBox(
@@ -137,11 +152,9 @@ class DashBoardScreen extends ConsumerWidget {
                                       totalExpensesInEveryCommitment(index),
                                   totalAmount: commitment[index].originalAmount,
                                 );
-                            // calculateThePercentageOfTheIndicator(
-                            //   totalExpensesInEveryCommitment(index),
-                            //   commitment[index].amount,
-                            // );
+
                             print('percentage: $percentage of index $index');
+
                             return Card(
                               child: InkWell(
                                 onTap: () {
@@ -153,22 +166,39 @@ class DashBoardScreen extends ConsumerWidget {
                                     ),
                                   );
                                 },
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(commitment[index].description),
-                                          Text('${commitment[index].amount}'),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '${commitment[index].amount}',
+                                              ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  ref
+                                                      .read(
+                                                        fixedCommitmentProvider
+                                                            .notifier,
+                                                      )
+                                                      .deleteCommitment(index);
+                                                },
+                                                icon: Icon(Icons.delete),
+                                              ),
+                                            ],
+                                          ),
                                         ],
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
+
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
                                             child: LinearProgressIndicator(
@@ -181,31 +211,37 @@ class DashBoardScreen extends ConsumerWidget {
                                           ),
                                         ],
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
                           },
                         ),
                       ),
+
                 SizedBox(height: 10),
+
                 Text('Recent Expenses'),
+
                 SizedBox(height: 10),
-                Column(
-                  children: List.generate(3, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Expense'),
-                          Text('totalamount of expense'),
-                        ],
+
+                recentExpenses.isEmpty
+                    ? const Text('No recent expenses')
+                    : Column(
+                        children: recentExpenses.take(3).map((expense) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(expense.description),
+                                Text('${expense.amount}'),
+                              ],
+                            ),
+                          );
+                        }).toList(),
                       ),
-                    );
-                  }),
-                ),
               ],
             ),
           ),
