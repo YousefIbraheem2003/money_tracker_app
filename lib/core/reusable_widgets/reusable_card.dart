@@ -14,7 +14,7 @@ class ReusableCard extends StatelessWidget {
   });
   final String description;
   final double totalAmountOfMoney;
-  final String dateTime;
+  final DateTime dateTime;
   final VoidCallback onTap;
   final VoidCallback onPressedDelete;
   final VoidCallback onPressedEdit;

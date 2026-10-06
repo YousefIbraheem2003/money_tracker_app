@@ -3,7 +3,7 @@ class CommitmentModel {
   double amount;
   double originalAmount;
   List<ExpenseModel> expenses;
-  String dateTime;
+  DateTime dateTime;
 
   CommitmentModel({
     required this.originalAmount,
@@ -12,8 +12,9 @@ class CommitmentModel {
     required this.amount,
     required this.expenses,
   });
+
   CommitmentModel copyWith({
-    String? dateTime,
+    DateTime? dateTime,
     String? description,
     double? amount,
     List<ExpenseModel>? expenses,
@@ -33,7 +34,7 @@ class CommitmentModel {
       'description': description,
       'amount': amount,
       'expenses': expenses.map((expense) => expense.toJson()).toList(),
-      'dateTime': dateTime,
+      'dateTime': dateTime.toIso8601String(),
       'originalAmount': originalAmount,
     };
   }
@@ -43,14 +44,20 @@ class CommitmentModel {
       originalAmount: json['originalAmount'] != null
           ? (json['originalAmount'] as num).toDouble()
           : (json['amount'] as num).toDouble(),
+
       dateTime: json['dateTime'] != null
-          ? (json['dateTime'])
-          : '${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}',
+          ? DateTime.parse(json['dateTime'])
+          : DateTime.now(),
+
       description: json['description'],
-      amount: json['amount'],
-      expenses: (json['expenses'] as List)
-          .map((expense) => ExpenseModel.fromJson(expense))
-          .toList(),
+
+      amount: (json['amount'] as num).toDouble(),
+
+      expenses: json['expenses'] != null
+          ? (json['expenses'] as List)
+                .map((expense) => ExpenseModel.fromJson(expense))
+                .toList()
+          : [],
     );
   }
 }
@@ -58,7 +65,8 @@ class CommitmentModel {
 class ExpenseModel {
   String description;
   double amount;
-  String dateTime;
+  DateTime dateTime;
+
   ExpenseModel({
     required this.description,
     required this.amount,
@@ -68,7 +76,7 @@ class ExpenseModel {
   ExpenseModel copyWith({
     String? description,
     double? amount,
-    String? dateTime,
+    DateTime? dateTime,
   }) {
     return ExpenseModel(
       dateTime: dateTime ?? this.dateTime,
@@ -78,16 +86,20 @@ class ExpenseModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {'description': description, 'amount': amount, 'dateTime': dateTime};
+    return {
+      'description': description,
+      'amount': amount,
+      'dateTime': dateTime.toIso8601String(),
+    };
   }
 
   factory ExpenseModel.fromJson(Map<String, dynamic> json) {
     return ExpenseModel(
       dateTime: json['dateTime'] != null
-          ? (json['dateTime'])
-          : '${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}',
+          ? DateTime.parse(json['dateTime'])
+          : DateTime.now(),
       description: json['description'],
-      amount: json['amount'],
+      amount: (json['amount'] as num).toDouble(),
     );
   }
 }

@@ -12,6 +12,7 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
   List<CommitmentModel> build() {
     print('BUILD PROVIDER');
     _loadCommitments();
+
     return [];
   }
 
@@ -22,8 +23,7 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     // final expenses = ref.read(expensesProvider(description));
 
     final newCommitmmitmentsModel = CommitmentModel(
-      dateTime:
-          '${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}',
+      dateTime: DateTime.now(),
       description: description,
       amount: totalAmountOfMoney,
       originalAmount: totalAmountOfMoney,
@@ -39,8 +39,7 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     required String description,
   }) {
     final newExpenses = ExpenseModel(
-      dateTime:
-          '${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}',
+      dateTime: DateTime.now(),
       description: description,
       amount: totalAmountOfMoney,
     );
