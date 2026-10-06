@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_money_tracker/core/providers/fixed_commitments_provider.dart';
 import 'package:simple_money_tracker/core/reusable_widgets/form_reusable_widget.dart';
+import 'package:simple_money_tracker/features/dash_doard/presentation/dash_board_screen.dart';
 import 'package:simple_money_tracker/features/fixed_commitment/presentation/fixed_commitment_screen.dart';
 
 class AddCommitment extends ConsumerWidget {
@@ -31,9 +32,9 @@ class AddCommitment extends ConsumerWidget {
         commitmentNameController.clear();
       },
       onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => FixedCommitmentScreen()),
-        );
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (context) => DashBoardScreen()));
       },
     );
   }
