@@ -4,6 +4,7 @@ import 'package:simple_money_tracker/core/models/commitment_model.dart';
 import 'package:simple_money_tracker/core/providers/fixed_commitments_provider.dart';
 import 'package:simple_money_tracker/features/detailed_expenses_Screen/detailed_expenses_screen.dart';
 import 'package:simple_money_tracker/features/fixed_commitment/presentation/add_commitment_screen.dart';
+import 'package:simple_money_tracker/features/history/presentation/history_screen.dart';
 
 class DashBoardScreen extends ConsumerStatefulWidget {
   const DashBoardScreen({super.key});
@@ -75,7 +76,23 @@ class _DashBoardScreenState extends ConsumerState<DashBoardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Good afternoon'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Good afternoon'),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HistoryScreen(),
+                          ),
+                        );
+                      },
+                      icon: Icon(Icons.history),
+                    ),
+                  ],
+                ),
                 SizedBox(height: 5),
                 Text('${DateTime.now().month}/${DateTime.now().day}'),
                 SizedBox(height: 20),
