@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simple_money_tracker/core/models/commitment_model.dart';
+import 'package:simple_money_tracker/core/providers/history_provider.dart';
 import 'package:simple_money_tracker/core/storage_helper/storage_helper.dart';
 
 final fixedCommitmentProvider =
@@ -54,6 +55,12 @@ class FixedCommitmentNotifier extends Notifier<List<CommitmentModel>> {
     final newState = [...state];
     newState[index] = updatedCommitment;
     state = newState;
+    ref
+        .read(historyProvider.notifier)
+        .addToTheExpensesHistory(
+          expense: newExpenses,
+          commitmentName: commitment.description,
+        );
     StorageHelper.saveCommitments(state);
   }
 
